@@ -3,8 +3,10 @@ const crypto = require('crypto');
 
 module.exports = {
     async listar(request,response){
-        const { page = 1} = request.query;
-        /* let page = request.params;
+        console.log('listat');
+        const { page = 1 } = request.query;
+        //const { page = 1 } = request.params;
+        /* let page = request.paramds;
         page = page.IntegerparseInt(); */
         const [cnt] = await conexao('incidentes').count();
         const incidntes = await conexao('incidentes').limit(5)
@@ -13,8 +15,7 @@ module.exports = {
         .select(['incidentes.*',
         'ongs.name',
         'ongs.email',
-        'ongs.whatsapp',
-        'ongs.city',
+        'ongs.whatsapp', 'ongs.city',
         'ongs.uf'
     
     ]);
@@ -25,7 +26,7 @@ module.exports = {
         const { title,description,value } = request.body;
         const ong_id = request.headers.autorizacao;
         
-        const [ result ]  = await conexao('incidentes').insert({
+        const [ result ] = await conexao('incidentes').insert({
             title,
             description,
             value,
@@ -53,6 +54,15 @@ module.exports = {
         await conexao('incidentes').where('id',id).delete();
         return response.status(204).send();
 
-    }
+    },
+    async deletarTds(request,response){
+        
+        try{
+        await conexao('incidentes').delete();
+        return response.status(204).send();
+        }catch(err){
+        return console.log(err);}
+
+    },
 
 }
