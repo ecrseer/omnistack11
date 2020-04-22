@@ -1,12 +1,12 @@
 const conexao = require('../../databases/connection');
-
+const crypto = require('crypto');
 module.exports ={
 
     async criar(request,response){
         
         console.log("la vem ong_id" );
-         const { id } = request.body; 
-        /* const ong_id = request.headers.autorizacao; */
+         //const { id } = request.body; 
+        const id = request.headers.autorizacao;
         console.log(`vou procurar o ${id}`);
         const ong = await conexao('ongs').
         where('id',id).

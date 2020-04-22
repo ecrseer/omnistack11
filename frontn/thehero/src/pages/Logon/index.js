@@ -11,15 +11,23 @@ export default function Logon(){
     const [id,setId] = useState('');
     const history = useHistory();
     
+   
+    var cabectc = {
+        headers: {
+            autorizacao: id,
+        }
+    };
+
     async function handleLogin(evento){
         evento.preventDefault();
         
         
 
         try{
-                    
-            const response = await api.post('sessao', { id }  );
-            alert(`bem vindo ${response.data.name}`)
+            alert(`bem vindo ${ cabectc.headers.autorizacao }`);        
+            var response = await api.post(`sessao`,{},cabectc);
+            alert(`bem vindo ${response.data.name}`);
+            
             localStorage.setItem('ongId',id);
             localStorage.setItem('ongName',response.data.name); 
             

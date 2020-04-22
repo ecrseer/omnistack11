@@ -1,6 +1,6 @@
    
    const conexao = require('../../databases/connection');
-   const crypto = require('crypto');
+   const geraC = require('../../nads/gerador');
 module.exports = {
     
 
@@ -15,7 +15,7 @@ module.exports = {
     async criar(request,response){
     const { name,email,whatsapp, city, uf} = request.body;
     //const ukrl = request.query;
-    const id = crypto.randomBytes(4).toString('HEX');
+    const id = geraC();
     console.log(`vou inserir o ${name}`);
     await conexao('ongs').insert({
         id,
